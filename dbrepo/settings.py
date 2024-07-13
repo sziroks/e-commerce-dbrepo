@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "dbrepo_api",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -75,17 +77,10 @@ WSGI_APPLICATION = "dbrepo.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "core_db": {
+    "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "OPTIONS": {"options": "-c search_path=shop1"},
         "NAME": "core",
-        "USER": getenv("DB_DBREPO_USER"),
-        "PASSWORD": getenv("DB_DBREPO_PASSWORD"),
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
-    },
-    "identity_db": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "identity",
         "USER": getenv("DB_DBREPO_USER"),
         "PASSWORD": getenv("DB_DBREPO_PASSWORD"),
         "HOST": "127.0.0.1",
