@@ -50,20 +50,29 @@ CREATE TABLE IF NOT EXISTS shop1.item(
     ON DELETE SET NULL ON UPDATE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS shop1.item_group(
+    id_item_group INT,
+    id_item INT,
+
+    CONSTRAINT fk_item FOREIGN KEY (id_item)
+    REFERENCES shop1.item(id_item)
+    ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS shop1.order(
     id_order SERIAL PRIMARY KEY,
     id_user INT,
-    id_item INT,
+    id_item_group INT,
     id_order_status INT,
     total DECIMAL(10, 2) NOT NULL,
     created_at TIMESTAMP NOT NULL,
 
     CONSTRAINT fk_order_status FOREIGN KEY (id_order_status)
     REFERENCES shop1.order_status(id_order_status)
-    ON DELETE SET NULL ON UPDATE CASCADE
+    ON DELETE SET NULL ON UPDATE CASCADE,
 
-    CONSTRAINT fk_item FOREIGN KEY (id_item)
-    REFERENCES shop1.item(id_item)
+    CONSTRAINT fk_item_group FOREIGN KEY (id_item_group)
+    REFERENCES shop1.item_group(id_item_group)
     ON DELETE SET NULL ON UPDATE CASCADE
 );
 
